@@ -1,6 +1,6 @@
 # Databricks notebook source
 #Mount bronze blob storage using dbutils
-storage_account_name = "chandanastorage"
+'''storage_account_name = "chandanastorage"
 container_name = "bronze"
 mount_point = "/mnt/Bronze"
 AccessKey ='r1vAaWnGmV3A/kASoAmAsmrCW6WCzN/rrBeyBYwz7wnQqe9QD6YNL7yY4kULvzdEV5K6wgbFc25a+AStRoLP6A=='
@@ -11,12 +11,12 @@ dbutils.fs.mount(
   extra_configs={
     f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
   }
-)
+)'''
 
 
 # COMMAND ----------
 
-storage_account_name = "chandanastorage"
+'''storage_account_name = "chandanastorage"
 container_name = "bronze"
 mount_point = "/mnt/Silver"
 AccessKey ='r1vAaWnGmV3A/kASoAmAsmrCW6WCzN/rrBeyBYwz7wnQqe9QD6YNL7yY4kULvzdEV5K6wgbFc25a+AStRoLP6A=='
@@ -27,11 +27,11 @@ dbutils.fs.mount(
   extra_configs={
     f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
   }
-)
+)'''
 
 # COMMAND ----------
 
-storage_account_name = "chandanastorage"
+'''storage_account_name = "chandanastorage"
 container_name = "bronze"
 mount_point = "/mnt/Gold"
 AccessKey ='r1vAaWnGmV3A/kASoAmAsmrCW6WCzN/rrBeyBYwz7wnQqe9QD6YNL7yY4kULvzdEV5K6wgbFc25a+AStRoLP6A=='
@@ -42,7 +42,7 @@ dbutils.fs.mount(
   extra_configs={
     f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
   }
-)
+)'''
 
 # COMMAND ----------
 

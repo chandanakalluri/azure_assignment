@@ -1,11 +1,29 @@
 # Databricks notebook source
-from pyspark.sql.functions import split, when, col, to_date
+# MAGIC %run "/Workspace/bronze_to_silver/assesment/bronze_to_silver/Utils"
 
 # COMMAND ----------
 
-raw_customer_df = spark.read.csv('dbfs:/mnt/Bronze/sales_view/customer/20240105_sales_customer.csv', header=True, inferSchema=True)
+from pyspark.sql.functions import when, col
 
 
 # COMMAND ----------
 
-renamed_customer_df = toSnakeCase(raw_customer_df)
+raw_producet_df = spark.read.csv('dbfs:/mnt/Bronze/sales_view/product', header=True, inferSchema=True)
+
+
+# COMMAND ----------
+
+renamed_product_df = toSnakeCase(raw_producet_df)
+
+# COMMAND ----------
+
+sub_category_df = renamed_product_df.withColumn("sub_category", when(col('category_id') == 1, "phone")\
+        .when(col('category_id') == 2 , "laptop")\
+        .when(col('category_id') == 3, "playstation")\
+        .when(col('category_id') == 4, "e-device"))
+
+
+# COMMAND ----------
+
+writeTo = f'dbfs:/mnt/Silver/sales_view/product'
+write_delta_upsert(sub_category_df, writeTo)
