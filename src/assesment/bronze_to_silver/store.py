@@ -27,5 +27,5 @@ formated_date_df = store_category_df.withColumn('created_at', to_date('created_a
 
 # COMMAND ----------
 
-writeTo = f'dbfs:/mnt/Silver/sales_view/store'
+writeTo = f'dbfs:/mnt/silver/sales_view/store'
 write_delta_upsert(formated_date_df, writeTo)

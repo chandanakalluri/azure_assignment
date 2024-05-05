@@ -1,48 +1,32 @@
 # Databricks notebook source
 #Mount bronze blob storage using dbutils
-'''storage_account_name = "chandanastorage"
-container_name = "bronze"
-mount_point = "/mnt/Bronze"
-AccessKey ='r1vAaWnGmV3A/kASoAmAsmrCW6WCzN/rrBeyBYwz7wnQqe9QD6YNL7yY4kULvzdEV5K6wgbFc25a+AStRoLP6A=='
+def mount_blob_storage(storage_account_name, container_name, mount_point, access_key):
+    dbutils.fs.mount(
+        source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
+        mount_point=mount_point,
+        extra_configs={
+            f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": access_key
+        }
+    )
 
-dbutils.fs.mount(
-  source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
-  mount_point=mount_point,
-  extra_configs={
-    f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
-  }
-)'''
+# COMMAND ----------
+
+dbutils.widgets.text("storage_account_name", "chandanastorage", "Storage Account Name")
+dbutils.widgets.text("container_name", "bronze", "Container Name")
+dbutils.widgets.text("mount_point", "/mnt/bronze", "Mount Point")
+dbutils.widgets.text("access_key", "r1vAaWnGmV3A/kASoAmAsmrCW6WCzN/rrBeyBYwz7wnQqe9QD6YNL7yY4kULvzdEV5K6wgbFc25a+AStRoLP6A==", "Access Key")
 
 
 # COMMAND ----------
 
-'''storage_account_name = "chandanastorage"
-container_name = "bronze"
-mount_point = "/mnt/Silver"
-AccessKey ='r1vAaWnGmV3A/kASoAmAsmrCW6WCzN/rrBeyBYwz7wnQqe9QD6YNL7yY4kULvzdEV5K6wgbFc25a+AStRoLP6A=='
-
-dbutils.fs.mount(
-  source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
-  mount_point=mount_point,
-  extra_configs={
-    f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
-  }
-)'''
+storage_account_name = dbutils.widgets.get("storage_account_name")
+container_name = dbutils.widgets.get("container_name")
+mount_point = dbutils.widgets.get("mount_point")
+access_key = dbutils.widgets.get("access_key")
 
 # COMMAND ----------
 
-'''storage_account_name = "chandanastorage"
-container_name = "bronze"
-mount_point = "/mnt/Gold"
-AccessKey ='r1vAaWnGmV3A/kASoAmAsmrCW6WCzN/rrBeyBYwz7wnQqe9QD6YNL7yY4kULvzdEV5K6wgbFc25a+AStRoLP6A=='
-
-dbutils.fs.mount(
-  source=f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
-  mount_point=mount_point,
-  extra_configs={
-    f"fs.azure.account.key.{storage_account_name}.blob.core.windows.net": AccessKey
-  }
-)'''
+#mount_blob_storage(storage_account_name, container_name, mount_point, access_key)
 
 # COMMAND ----------
 

@@ -11,5 +11,5 @@ renamed_sales_df = toSnakeCase(raw_sales_df)
 
 # COMMAND ----------
 
-writeTo = f'dbfs:/mnt/Silver/sales_view/customer_sales'
+writeTo = f'dbfs:/mnt/silver/sales_view/customer_sales'
 write_delta_upsert(renamed_sales_df, writeTo)

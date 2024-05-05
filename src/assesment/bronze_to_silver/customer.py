@@ -11,7 +11,6 @@ from pyspark.sql.functions import split, when, col, to_date
 raw_customer_df = spark.read.csv('dbfs:/mnt/Bronze/20240107_sales_customer.csv', header=True, inferSchema=True)
 
 
-
 # COMMAND ----------
 
 renamed_customer_df = toSnakeCase(raw_customer_df)
@@ -48,8 +47,7 @@ converted_date_df = splited_join_date_df.withColumn('date', to_date(col('date'),
 
 expenditure_df = converted_date_df.withColumn('expenditure-status', when(col('spent') < 200, 'MINIMUM').otherwise('MAXIMUM'))
 
-
 # COMMAND ----------
 
-writeTo = f'dbfs:/mnt/Silver/sales_view/customer'
+writeTo = f'dbfs:/mnt/silver/sales_view/customer'
 expenditure_df.write.format('delta').save(writeTo)
