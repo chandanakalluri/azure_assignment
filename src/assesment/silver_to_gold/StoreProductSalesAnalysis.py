@@ -7,11 +7,10 @@ from pyspark.sql.functions import col
 
 # COMMAND ----------
 
-product_path = 'dbfs:/mnt/Silver/sales_view/product'
-store_path = 'dbfs:/mnt/Silver/sales_view/store'
+product_path = 'dbfs:/mnt/silver/sales_view/product'
+store_path = 'dbfs:/mnt/silver/sales_view/store'
 
-
-# COMMAND ----------'
+# COMMAND ----------
 
 product_df = read_delta_file(product_path)
 store_df = read_delta_file(store_path)
@@ -24,14 +23,13 @@ product_store_df = merged_product_store_df.select(store_df.store_id,"store_name"
 
 # COMMAND ----------
 
-customer_sales_path = "dbfs:/mnt/Silver/sales_view/customer_sales"
+customer_sales_path = "dbfs:/mnt/silver/sales_view/customer_sales"
 customer_sales_df = read_delta_file(customer_sales_path)
 
 # COMMAND ----------
 
 merged_prodcust_custsale_df = product_store_df.join(customer_sales_df, product_store_df.product_id == customer_sales_df.product_id, "inner")
 final_df = merged_prodcust_custsale_df.select("OrderDate","Category","City","CustomerID","OrderID",product_df.product_id.alias('ProductID'),"Profit","Region","Sales","Segment","ShipDate","ShipMode","latitude","longitude","store_name","location","manager_name","product_name","price","stock_quantity","image_url")
-
 
 # COMMAND ----------
 
